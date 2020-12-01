@@ -1,6 +1,10 @@
 class ArticlesController < ApplicationController
+
+    before_action :set_article, only: [:show, :edit, :update, :destroy]
+    # ici on fait du refactoring. before action exutera set_article pour les méthodes définies - l'action : @article = Article.find(params[:id]) a été supprimer ou mise en comment des dites method
+
     def show
-        @article = Article.find(params[:id])
+        # @article = Article.find(params[:id])
     end
 
     def index
@@ -12,11 +16,11 @@ class ArticlesController < ApplicationController
     end
 
     def edit
-        @article = Article.find(params[:id])
+        # @article = Article.find(params[:id])
     end
 
     def create
-       @article = Article.new(params.require(:article).permit(:title, :description)) #article is the top level key de notre form puis on spécifies les keys que l'on veut permettre :title et :description. C'est une meusre de sécu qui nous force a spécifier ce qui doit être importés
+       # @article = Article.new(params.require(:article).permit(:title, :description)) - article is the top level key de notre form puis on spécifies les keys que l'on veut permettre :title et :description. C'est une meusre de sécu qui nous force a spécifier ce qui doit être importés
        #render plain: @article.inspect
        if @article.save #a la finn de cette action rails ne sais pas ou aller, donc il est bon de le rediriger vers par ex. la page du nouvel article
         # si successully saved on utilise un flash helper pour avertir avec un msg
@@ -28,7 +32,7 @@ class ArticlesController < ApplicationController
     end
 
     def update
-        @article = Article.find(params[:id]) # en 1 pour update il faut pointer vers l'article a updater
+        # @article = Article.find(params[:id]) en 1 pour update il faut pointer vers l'article a updater
         if @article.update(params.require(:article).permit(:title, :description)) #ici on update
             flash[:notice] = "Article was updated succesfully"
             redirect_to @article
@@ -38,9 +42,16 @@ class ArticlesController < ApplicationController
     end
 
     def destroy
-        @article = Article.find(params[:id])
-        @article.destroy
+        # @article = Article.find(params[:id])
+        @article.destroy 
         redirect_to articles_path
     end
+
+    private
+
+    def set_article
+        @article = Article.find(params[:id])
+    end
+
 
 end

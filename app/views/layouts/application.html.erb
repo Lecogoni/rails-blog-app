@@ -13,11 +13,7 @@
     <div>
       <h1>VOICI MON HEADER</h1>
     </div>
-    <% flash.each do |type, msg| %>
-            <div>
-                <%= msg %>
-            </div>
-    <% end %>
+    <%= render 'layouts/messages' %>
     <%= yield %>
   </body>
 </html>
