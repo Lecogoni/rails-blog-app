@@ -1,0 +1,29 @@
+<h1>Edit article</h1>
+
+
+<% if @article.errors.any? %>
+    <h2>The following errors prevented the article from being saved</h2>
+    <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>        
+<% end %>
+
+<%= form_with(model: @article, local: true) do |f| %> <!-- En changeant ici scope (qui fournirt un template vide) par model on fait référence à une instance de la casse aerticle ce qui permettra a Rails de remplir les champs title et description et il va aussi former l'URL qui convient, a soumettre a update -->
+<p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+</p>
+
+<p>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+</p>
+<p>
+    <%= f.submit %> |
+</p>
+
+<% end %>
+
+<%= link_to 'cancel and return to article listing', articles_path %>

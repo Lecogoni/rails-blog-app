@@ -1,0 +1,28 @@
+<h1>Display articles listing : index</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>title</th>
+            <th>description</th>
+            <th colspan="3">actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @articles.each do |article|%>
+
+        <tr>
+            <td><%= article.title %></td>
+            <td><%= article.description %></td>
+            <td><%= link_to 'Show', article_path(article) %></td> 
+            <td><%= link_to 'Edit', edit_article_path(article) %></td> 
+            <td><%= link_to 'Delete', article_path(article.id), method: :delete, data: { confirm: "Are You Sure ?"} %></td>  <!-- La partie data confirm c du JS-->
+            <!-- Ici  on insère un lien qui servira a l'action Delete, lien auquel il faut ajouter l'id du lien afin de Delete le bon 
+            on fait cela en précisant le chemin, je peux écrire article.id car ici on itère sur chaque article. Ca marche aussi si j'écris article au lieu de article.id - Rails comprendra que c'est l'id que l'on veux -->
+            <!-- Si on ne précise pas la method , le lien spécifier est le même que la method show (cf rails routes) donc il nous emmenera vers la method show. Il faut donc specifier la metho en précisant le VERD de la routes-->
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<br>
+<button><%= link_to 'New article', new_article_path %></button>

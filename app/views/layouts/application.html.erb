@@ -10,6 +10,14 @@
   </head>
 
   <body>
+    <div>
+      <h1>VOICI MON HEADER</h1>
+    </div>
+    <% flash.each do |type, msg| %>
+            <div>
+                <%= msg %>
+            </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
